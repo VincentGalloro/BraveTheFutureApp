@@ -14,7 +14,7 @@ public class Level {
     }
     
     public void render(Graphics2D g){
-        g.setColor(Color.red);
+        g.setColor(Color.pink);
         g.drawOval(100, 100, 100, 100);
     }
 }
