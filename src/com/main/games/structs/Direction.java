@@ -14,4 +14,12 @@ public enum Direction {
     Direction(Point offset){
         this.offset = offset;
     }
+    
+    public Point move(Point pos){
+        return new Point(pos.x + offset.x, pos.y + offset.y);
+    }
+    
+    public Direction opposite(){
+        return Direction.values()[(ordinal()+2)%4];
+    }
 }

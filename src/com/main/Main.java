@@ -20,16 +20,17 @@ public class Main extends Canvas implements Runnable{
     
     private Level level;
     //private Keyboard keyboard;
-    //private Mouse mouse;
+    private Mouse mouse;
     
     public Main(){
         //TinySound.init();
-        level = new Level();
         /*keyboard = new Keyboard();
-        addKeyListener(keyboard);   
+        addKeyListener(keyboard); */  
         mouse = new Mouse();
         addMouseListener(mouse);
-        addMouseMotionListener(mouse);*/
+        addMouseMotionListener(mouse);
+        
+        level = new Level(mouse);
     }
 
     public synchronized void start() {
