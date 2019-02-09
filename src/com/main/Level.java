@@ -1,20 +1,21 @@
 
 package com.main;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Level {
     
+    AabidLearnFile temp;
+    
     public Level(){
-        
+        temp = new AabidLearnFile();
     }
     
     public void update(){
+        temp.update();
     }
     
     public void render(Graphics2D g){
-        g.setColor(Color.pink);
-        g.drawOval(100, 100, 100, 100);
+        temp.render(g);
     }
 }
