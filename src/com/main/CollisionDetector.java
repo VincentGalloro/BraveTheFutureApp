@@ -30,7 +30,7 @@ public class CollisionDetector {
     }
     
     public void check(){
-        double s = 25 + 25;
+        double s = 17 + 17;
         for (int i = 0; i < coin.size(); i++){
             if ((headxcoord >= coin.get(i).xcoord - s && headxcoord <= coin.get(i).xcoord + s) && 
             (headycoord >= coin.get(i).ycoord - s && headycoord <= coin.get(i).ycoord + s)){

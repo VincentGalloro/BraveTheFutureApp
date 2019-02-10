@@ -31,15 +31,13 @@ public class SnakeGame implements IGame{
        
         //Create body
         body = new ArrayList<SnakeBody>();
-        for(int i = 0; i < 10; i++){
-            body.add(new SnakeBody(initxcoord, initycoord));
-        }
+        body.add(new SnakeBody(initxcoord, initycoord));
         
         //Creat coins
         coin = new ArrayList<BraveCoinsGenerator>();
         for(int i = 0; i < 10; i++){
             coin.add(new BraveCoinsGenerator(random.nextInt((int)getSize().x - 90 - 90 + 1) + 90, 
-                    random.nextInt((int)getSize().y - 90 - 90 + 1) + 90));
+            random.nextInt((int)getSize().y - 90 - 90 + 1) + 90));
         }
         
         //Create collisoin detector
@@ -55,8 +53,8 @@ public class SnakeGame implements IGame{
            if (coin.get(x).hit_flag == true){
                coin.remove(x);
                coin.add(new BraveCoinsGenerator(random.nextInt((int)getSize().x - 90 - 90 + 1) + 90,
-                    random.nextInt((int)getSize().y - 90 - 90 + 1) + 90));
-
+               random.nextInt((int)getSize().y - 90 - 90 + 1) + 90));
+               body.add(new SnakeBody(initxcoord, initycoord));
            }
        }  
         for (int x = 0; x < body.size(); x++){
