@@ -3,11 +3,12 @@ package com.main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Random;
 
 public class SnakeHead {
     
     
-    
+    Color c;
     Mouse mouse;
     public int xcoord;
     public int ycoord;
@@ -18,6 +19,14 @@ public class SnakeHead {
         this.mouse = mouse;
         this.xcoord = initxcoord;
         this.ycoord = initycoord;
+        
+        Color[] cs = {new Color(0x0077CA),
+                new Color(0x84BD00),
+                new Color(0xFFCD3A),
+                new Color(0x804693),
+                new Color(0x41B6E6)};
+        Random random = new Random();
+        c = cs[random.nextInt(cs.length)];
     }
     
     public void update(Vector size, Vector p){
@@ -71,7 +80,7 @@ public class SnakeHead {
     
     public void render(Graphics2D g){
         
-        g.setColor(Color.GREEN);
+        g.setColor(c);
         g.fillOval(xcoord, ycoord, 75, 50);
          g.setColor(Color.BLACK);
          

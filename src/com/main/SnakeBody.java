@@ -4,12 +4,14 @@ package com.main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class SnakeBody {
     ArrayList<Integer> xcoordinates;
     ArrayList<Integer> ycoordinates;
     int xcoord;
     int ycoord;
+    Color c;
     
     public SnakeBody(int initxcoord, int initycoord){
         xcoordinates = new ArrayList<>();
@@ -18,6 +20,14 @@ public class SnakeBody {
         ycoordinates.add(initycoord);
         xcoord = -1000;
         ycoord = -1000;
+        
+        Color[] cs = {new Color(0x0077CA),
+                new Color(0x84BD00),
+                new Color(0xFFCD3A),
+                new Color(0x804693),
+                new Color(0x41B6E6)};
+        Random random = new Random();
+        c = cs[random.nextInt(cs.length)];
     }
     
     public void update(int head_xcoord, int head_ycoord){
@@ -29,7 +39,7 @@ public class SnakeBody {
     }
     
     public void render(Graphics2D g){
-        g.setColor(Color.GREEN);
+        g.setColor(c);
         g.fillOval(xcoord, ycoord, 55, 30);
     }
 }

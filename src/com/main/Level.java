@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 enum State{
+    INTRO,
     MENU,
     GAME;
 }
@@ -35,7 +36,7 @@ public class Level {
     private TextElement text;
     
     private ViewFirebase firebase;
-    private BufferedImage frame;
+    private BufferedImage frame, intro;
     
     private ArrayList<MenuButton> menuButtons;
     private IContainer menu, pad;
@@ -47,11 +48,13 @@ public class Level {
         this.mouse = mouse;
         container = new GameContainer();
         text = new TextElement();
-        state = State.MENU;
+        state = State.INTRO;
         
         BufferedImage[] menus = new BufferedImage[3];
+        
         try {
             frame = ImageIO.read(new File("res/frame.png"));
+            intro = ImageIO.read(new File("res/intro.jpg"));
             
             menus[0] = ImageIO.read(new File("res/slidingTiles.PNG"));
             menus[1] = ImageIO.read(new File("res/breakout.PNG"));
@@ -81,8 +84,17 @@ public class Level {
     public void update(){
         mouse.update();
         
-        if(state == State.GAME){
+        if(state == State.INTRO){
+            if(mouse.buttonsClick[Mouse.LEFT]){
+                state = State.MENU;
+            }
+        }
+        else if(state == State.GAME){
             container.update();
+            
+            if(mouse.buttonsClick[Mouse.RIGHT]){
+                state = State.MENU;
+            }
         }
         else if(state == State.MENU){
             for(int i = 0; i < menuButtons.size(); i++){
@@ -111,6 +123,11 @@ public class Level {
         }
         else if(state == State.MENU){
             menu.render(g);
+        }
+        else if(state == State.INTRO){
+            int s = 45;
+            int t = 10;
+            g.drawImage(intro, t, s, Main.WIDTH-t*2, Main.HEIGHT-s*2, null);
         }
         
         g.drawImage(frame, 0, 0, Main.WIDTH, Main.HEIGHT, null);

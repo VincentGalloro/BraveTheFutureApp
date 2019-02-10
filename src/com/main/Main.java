@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 
 public class Main extends Canvas implements Runnable{  
     
-    public static final int WIDTH = 310;
-    public static final int HEIGHT = 700;
+    public static final int WIDTH = (int)(310 * 1.26);
+    public static final int HEIGHT = (int)(700 * 1.26);
     private static final String TITLE = "";
     
     public static final Color BACKGROUND_COLOR = Color.WHITE;

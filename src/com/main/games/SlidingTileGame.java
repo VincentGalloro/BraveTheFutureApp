@@ -23,7 +23,7 @@ public class SlidingTileGame implements IGame{
     private SlidingTile[][] tileGrid;
     private Point size;
     
-    private int shuffleMoves = 100;
+    private int shuffleMoves = 40;
     private int shuffleTime = 0;
     private Direction lShuffle;
     

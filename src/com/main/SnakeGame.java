@@ -89,7 +89,7 @@ public class SnakeGame implements IGame{
         g.fill3DRect(0, (int)getSize().y - 40, (int)getSize().x, 40, true);
         
         //Create Scoreboard
-        g.setColor(Color.RED);
+        g.setColor(new Color(0xc71566));
         g.fill3DRect((int)getSize().x - 140, 40, 100, 200, true);
         g.setColor(Color.BLACK);
         FontRenderContext frc = g.getFontRenderContext();
@@ -111,6 +111,6 @@ public class SnakeGame implements IGame{
     }
 
     public Vector getSize() {
-        return new Vector(700, 1300).multiply(1.5);
+        return new Vector(700, 1300).multiply(1);
     }
 }
