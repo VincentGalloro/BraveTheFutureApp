@@ -6,7 +6,6 @@ import com.main.Vector;
 import com.main.games.objects.SlidingTile;
 import com.main.games.structs.Direction;
 import com.ui.BoxElement;
-import com.ui.IElement;
 import com.ui.ImageElement;
 import com.ui.ScaleElement;
 import java.awt.Color;
@@ -17,7 +16,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class SlidingTileGame implements IGame, IElement{
+public class SlidingTileGame implements IGame{
 
     private Mouse mouse;
     private ArrayList<SlidingTile> tiles;

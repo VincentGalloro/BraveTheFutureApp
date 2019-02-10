@@ -3,8 +3,8 @@ package com.main.games;
 
 import com.main.Main;
 import com.main.Vector;
+import com.ui.ColumnElement;
 import com.ui.PaddingElement;
-import com.ui.RowElement;
 import com.ui.ScaleElement;
 import com.ui.TextElement;
 import java.awt.Graphics2D;
@@ -26,10 +26,10 @@ public class GameContainer {
         
         frame.setSize(new Vector(Main.WIDTH, Main.HEIGHT));
         gameWindow.setSize(new Vector(Main.WIDTH, Main.HEIGHT));
-        padding.setPadding(100);
+        padding.setPadding(20);
         text.setText("LOSER");
         
-        frame.setElement(padding.setElement(new RowElement().setSeperation(100).addElement(
+        frame.setElement(padding.setElement(new ColumnElement().setSeperation(100).addElement(
                 gameWindow).addElement(
                 text)));
     }
