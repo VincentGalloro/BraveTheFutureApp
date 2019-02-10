@@ -47,9 +47,18 @@ public class SnakeGame implements IGame{
     }
     
     public void update(AffineTransform at){
+        Random random = new Random();
         head.update(getSize());
         detect.update(head.xcoord, head.ycoord, coin);
         detect.check();
+        for (int x = coin.size() - 1; x >= 0; x--){
+           if (coin.get(x).hit_flag == true){
+               coin.remove(x);
+               coin.add(new BraveCoinsGenerator(random.nextInt((int)getSize().x - 90 - 90 + 1) + 90,
+                    random.nextInt((int)getSize().y - 90 - 90 + 1) + 90));
+
+           }
+       }  
         for (int x = 0; x < body.size(); x++){
             if(x==0){
                 body.get(x).update(head.xcoord , head.ycoord);
@@ -59,6 +68,7 @@ public class SnakeGame implements IGame{
                 body.get(x).update(b.xcoord, b.ycoord);
             }
        }  
+
     }
     
     public void render(Graphics2D g){
@@ -72,6 +82,8 @@ public class SnakeGame implements IGame{
         head.render(g);
         for (int x = 0; x < body.size(); x++){
             body.get(x).render(g);
+        }
+        for (int x = 0; x < coin.size(); x++){
             coin.get(x).render(g);
         }  
         

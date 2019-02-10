@@ -35,6 +35,7 @@ public class CollisionDetector {
             if ((headxcoord >= coin.get(i).xcoord - s && headxcoord <= coin.get(i).xcoord + s) && 
             (headycoord >= coin.get(i).ycoord - s && headycoord <= coin.get(i).ycoord + s)){
                 System.out.println("HIT");
+                coin.get(i).hit_flag = true;
             }
         }
     }

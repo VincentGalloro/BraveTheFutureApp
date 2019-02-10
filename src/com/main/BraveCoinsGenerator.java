@@ -18,11 +18,13 @@ public class BraveCoinsGenerator {
     public BufferedImage coin;
     public int xcoord;
     public int ycoord;
+    public boolean hit_flag;
     ImageObserver observer;
     
     public BraveCoinsGenerator(int xcoord, int ycoord){
         this.xcoord = xcoord;
         this.ycoord = ycoord;
+        hit_flag = false;
         try {
             coin = ImageIO.read(new File("BTFCoin.png" ));
         } catch (IOException ex) {
