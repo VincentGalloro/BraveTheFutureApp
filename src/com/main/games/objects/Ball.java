@@ -34,7 +34,7 @@ public class Ball {
     public double getRadius(){ return radius; }
     
     public void render(Graphics2D g){
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
         g.fill(new Ellipse2D.Double(pos.x-radius, pos.y-radius, radius*2, radius*2));
     }
 }

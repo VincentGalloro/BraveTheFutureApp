@@ -8,6 +8,7 @@ import com.main.games.IGame;
 import com.ui.BoxElement;
 import com.ui.IElement;
 import com.ui.ImageElement;
+import com.ui.ScaleElement;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -21,13 +22,17 @@ public class MenuButton implements IElement{
     private boolean clicked;
     
     public MenuButton(BufferedImage img, GameFactory factory, Mouse mouse){
-        box = new BoxElement().setOutlineColor(Color.BLACK).setElement(new ImageElement().setImage(img));
+        box = new BoxElement().setOutlineColor(Color.BLACK).setElement(
+                new ScaleElement().setSize(new Vector(128)).setElement(new ImageElement().setImage(img)));
         this.factory = factory;
         this.mouse = mouse;
     }
     
     public void update(AffineTransform at){
         Vector p = mouse.getTransformedPos(at);
+        
+        //System.out.println(p);
+        
         clicked = mouse.buttonsClick[Mouse.LEFT] && p.x >= 0 && p.x < box.getSize().x && p.y >= 0 && p.y < box.getSize().y;
     }
     

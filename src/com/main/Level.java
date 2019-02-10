@@ -3,16 +3,20 @@ package com.main;
 
 import com.main.firebase.ViewFirebase;
 import com.main.firebase.ViewFirebaseDummy;
+import com.main.games.BreakoutGameFactory;
 import com.main.games.GameContainer;
 import com.main.games.SlidingTileGameFactory;
+import com.main.games.SnakeGameFactory;
 import com.main.menu.MenuButton;
 import com.ui.ColumnElement;
-import com.ui.IElement;
+import com.ui.IContainer;
+import com.ui.IListContainer;
 import com.ui.PaddingElement;
 import com.ui.ScaleElement;
 import com.ui.TextElement;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +38,8 @@ public class Level {
     private BufferedImage frame;
     
     private ArrayList<MenuButton> menuButtons;
-    private IElement menu;
+    private IContainer menu, pad;
+    private IListContainer col;
     
     private State state;
     
@@ -42,42 +47,71 @@ public class Level {
         this.mouse = mouse;
         container = new GameContainer();
         text = new TextElement();
+        state = State.MENU;
         
-        BufferedImage[] menus = new BufferedImage[1];
+        BufferedImage[] menus = new BufferedImage[3];
         try {
             frame = ImageIO.read(new File("res/frame.png"));
             
             menus[0] = ImageIO.read(new File("res/slidingTiles.PNG"));
+            menus[1] = ImageIO.read(new File("res/breakout.PNG"));
+            menus[2] = ImageIO.read(new File("res/snake.PNG"));
             
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         
-        container.setGame(new SnakeGame());
+        //container.setGame(new SnakeGame());
         
         firebase = new ViewFirebaseDummy();
         
         menuButtons = new ArrayList<>();
         menuButtons.add(new MenuButton(menus[0], new SlidingTileGameFactory(mouse), mouse));
+        menuButtons.add(new MenuButton(menus[1], new BreakoutGameFactory(mouse), mouse));
+        menuButtons.add(new MenuButton(menus[2], new SnakeGameFactory(), mouse));
         
-        ColumnElement menuCol = new ColumnElement();
-        for(MenuButton mb : menuButtons){ menuCol.addElement(mb); }
+        col = new ColumnElement().setSeperation(20);
+        for(MenuButton mb : menuButtons){ col.addElement(mb); }
         
-        menu = new ScaleElement().setSize(new Vector(Main.WIDTH, Main.HEIGHT)).setElement(
-                new PaddingElement().setPadding(60).setElement(menuCol));
+        pad = new PaddingElement().setPadding(60).setElement(col);
+        menu = new ScaleElement().setSize(new Vector(Main.WIDTH, Main.HEIGHT)).setElement(pad);
+                
     }
     
     public void update(){
         mouse.update();
-        container.update();
         
+        if(state == State.GAME){
+            container.update();
+        }
+        else if(state == State.MENU){
+            for(int i = 0; i < menuButtons.size(); i++){
+                AffineTransform at = new AffineTransform();
+                menu.applyTrasform(at);
+                pad.applyTrasform(at);
+                col.applyTrasform(at, i);
+                try {
+                    at.invert();
+                } catch (NoninvertibleTransformException ex) {}
+                menuButtons.get(i).update(at);
+                if(menuButtons.get(i).isClicked()){
+                    container.setGame(menuButtons.get(i).createGame());
+                    state = State.GAME;
+                    break;
+                }
+            }
+        }
         
         //text.setText(firebase);
     }
     
     public void render(Graphics2D g){
-        container.render(g);
-        //menu.render(g);
+        if(state == State.GAME){
+            container.render(g);
+        }
+        else if(state == State.MENU){
+            menu.render(g);
+        }
         
         g.drawImage(frame, 0, 0, Main.WIDTH, Main.HEIGHT, null);
         
