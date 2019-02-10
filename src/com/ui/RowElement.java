@@ -26,8 +26,11 @@ public class RowElement implements IListContainer{
     
     public Vector getSize() {
         Vector size = new Vector();
-        size.x = elements.stream().mapToDouble((IElement e) -> e.getSize().x).sum() + seperation * (elements.size()-1);
-        size.y = elements.stream().mapToDouble((IElement e) -> e.getSize().y).max().orElse(0);
+        for(IElement e : elements){
+            if(e.getSize().y > size.y){ size.y = e.getSize().y; }
+            size.x += e.getSize().x;
+        }
+        size.x += seperation * (elements.size()-1);
         return size;
     }
 

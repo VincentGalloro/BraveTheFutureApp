@@ -26,8 +26,11 @@ public class ColumnElement implements IListContainer{
     
     public Vector getSize() {
         Vector size = new Vector();
-        size.x = elements.stream().mapToDouble((IElement e) -> e.getSize().x).max().orElse(0);
-        size.y = elements.stream().mapToDouble((IElement e) -> e.getSize().y).sum() + seperation * (elements.size()-1);
+        for(IElement e : elements){
+            if(e.getSize().x > size.x){ size.x = e.getSize().x; }
+            size.y += e.getSize().y;
+        }
+        size.y += seperation * (elements.size()-1);
         return size;
     }
 
