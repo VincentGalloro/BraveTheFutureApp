@@ -3,7 +3,10 @@ package com.main;
 
 import com.main.games.IGame;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.util.Random;
 import java.util.ArrayList;
@@ -17,10 +20,13 @@ public class SnakeGame implements IGame{
     int initycoord;
     int xvel;
     int yvel;
+    int score;
     
     //random.nextInt(max - min + 1) + min
     public SnakeGame(){
         Random random = new Random();
+        
+        score = 0;
         
         //Create head
         initxcoord = random.nextInt(Main.WIDTH - 90 - 90 + 1) + 90;
@@ -35,7 +41,7 @@ public class SnakeGame implements IGame{
         
         //Creat coins
         coin = new ArrayList<BraveCoinsGenerator>();
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 5; i++){
             coin.add(new BraveCoinsGenerator(random.nextInt((int)getSize().x - 90 - 90 + 1) + 90, 
             random.nextInt((int)getSize().y - 90 - 90 + 1) + 90));
         }
@@ -51,6 +57,7 @@ public class SnakeGame implements IGame{
         detect.check();
         for (int x = coin.size() - 1; x >= 0; x--){
            if (coin.get(x).hit_flag == true){
+               score ++;
                coin.remove(x);
                coin.add(new BraveCoinsGenerator(random.nextInt((int)getSize().x - 90 - 90 + 1) + 90,
                random.nextInt((int)getSize().y - 90 - 90 + 1) + 90));
@@ -70,12 +77,20 @@ public class SnakeGame implements IGame{
     }
     
     public void render(Graphics2D g){
-        
         g.setColor(Color.DARK_GRAY);
         g.fill3DRect(0, 0, 40, (int)getSize().y, true);
         g.fill3DRect((int)getSize().x - 40, 0, 40, (int)getSize().y, true);
         g.fill3DRect(0, 0, (int)getSize().x, 40, true);
         g.fill3DRect(0, (int)getSize().y - 40, (int)getSize().x, 40, true);
+        
+        //Create Scoreboard
+        g.setColor(Color.RED);
+        g.fill3DRect((int)getSize().x - 140, 40, 100, 200, true);
+        g.setColor(Color.BLACK);
+        FontRenderContext frc = g.getFontRenderContext();
+        Font font1 = new Font("Courier", Font.BOLD, 50);
+        TextLayout tl = new TextLayout(Integer.toString(score), font1, frc);
+        tl.draw(g, (int)getSize().x - 100, 160);
         
         head.render(g);
         for (int x = 0; x < body.size(); x++){
