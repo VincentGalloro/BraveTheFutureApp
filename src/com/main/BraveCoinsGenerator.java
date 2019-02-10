@@ -9,6 +9,8 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -18,10 +20,14 @@ public class BraveCoinsGenerator {
     public int ycoord;
     ImageObserver observer;
     
-    public BraveCoinsGenerator(int xcoord, int ycoord) throws IOException{
+    public BraveCoinsGenerator(int xcoord, int ycoord){
         this.xcoord = xcoord;
         this.ycoord = ycoord;
-        coin = ImageIO.read(new File("BTFCoin.png" ));
+        try {
+            coin = ImageIO.read(new File("BTFCoin.png" ));
+        } catch (IOException ex) {
+            Logger.getLogger(BraveCoinsGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void update(){

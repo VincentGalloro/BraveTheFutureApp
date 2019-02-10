@@ -3,9 +3,6 @@ package com.main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
-import javax.swing.*;
 
 public class SnakeHead {
     public int xcoord;
@@ -21,12 +18,12 @@ public class SnakeHead {
         this.yvel = 4;
     }
     
-    public void update(){
+    public void update(Vector size){
         xcoord += xvel;
         ycoord += yvel;
         
         collision=false;
-        if (ycoord >= Main.HEIGHT - 90){
+        if (ycoord >= size.y - 90){
             yvel = -yvel;
             collision = true;
         }
@@ -35,7 +32,7 @@ public class SnakeHead {
             collision = true;
         }
         
-        if (xcoord >= Main.WIDTH - 90){
+        if (xcoord >= size.x - 90){
             xvel = -xvel;
             collision = true;
         }
@@ -51,11 +48,6 @@ public class SnakeHead {
     }
     
     public void render(Graphics2D g){
-        g.setColor(Color.DARK_GRAY);
-        g.fill3DRect(0, 10, 40, Main.HEIGHT, true);
-        g.fill3DRect(Main.WIDTH - 40, 10, 40, Main.HEIGHT, true);
-        g.fill3DRect(0, 10, Main.WIDTH, 40, true);
-        g.fill3DRect(0, Main.HEIGHT - 40, Main.WIDTH, 40, true);
         
         g.setColor(Color.GREEN);
         g.fillOval(xcoord, ycoord, 75, 50);

@@ -14,7 +14,7 @@ public class Main extends Canvas implements Runnable{
     public static final int HEIGHT = 700;
     private static final String TITLE = "";
     
-    public static final Color BACKGROUND_COLOR = Color.BLACK;
+    public static final Color BACKGROUND_COLOR = Color.WHITE;
 
     private JFrame frame;
     

@@ -4,8 +4,9 @@ import com.main.Vector;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class ColumnElement implements IElement{
+public class ColumnElement implements IListContainer{
     
     private ArrayList<IElement> elements;
     private double seperation;
@@ -37,5 +38,19 @@ public class ColumnElement implements IElement{
             g.translate(0, e.getSize().y+seperation);
         }
         g.setTransform(save);
+    }
+    
+    public int getElementCount() {
+        return elements.size();
+    }
+
+    public Iterator<IElement> getElements() {
+        return elements.iterator();
+    }
+
+    public void applyTrasform(AffineTransform at, int index) {
+        for(int i = 0; i < index; i++){
+            at.translate(0, elements.get(i).getSize().y + seperation);
+        }
     }
 }
