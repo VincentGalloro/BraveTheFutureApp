@@ -3,9 +3,7 @@ package com.main;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
-import javax.swing.*;
 
 public class SnakeBody {
     ArrayList<Integer> xcoordinates;
@@ -18,6 +16,8 @@ public class SnakeBody {
         ycoordinates = new ArrayList<>();
         xcoordinates.add(initxcoord);
         ycoordinates.add(initycoord);
+        xcoord = -1000;
+        ycoord = -1000;
     }
     
     public void update(int head_xcoord, int head_ycoord){

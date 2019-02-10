@@ -28,10 +28,16 @@ public class BreakoutGame implements IGame{
         collider = new BallCollider(ball);
         collider.addCollidable(paddle);
         
+        Color[] cs = {new Color(0x0077CA),
+                new Color(0x84BD00),
+                new Color(0xFFCD3A),
+                new Color(0x804693),
+                new Color(0x41B6E6)};
+        
         Random random = new Random();
         for(int y = 0; y < 6; y++){
             for(int x = 0; x < 6 + (1 - y%2); x++){
-                Color c = new Color(Color.HSBtoRGB(random.nextFloat(), 0.8f, 0.8f));
+                Color c = cs[random.nextInt(cs.length)];
                 int s = ((x==0 || x==6) && y%2==0) ? 25 : 50;
                 int o = (y%2==0 && x!=0) ? -25 : 0;
                 bricks.add(new Brick(new Vector(x, y).multiply(new Vector(50, 25)).add(new Vector(o, 100)), 

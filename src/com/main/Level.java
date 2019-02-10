@@ -68,7 +68,7 @@ public class Level {
         menuButtons = new ArrayList<>();
         menuButtons.add(new MenuButton(menus[0], new SlidingTileGameFactory(mouse), mouse));
         menuButtons.add(new MenuButton(menus[1], new BreakoutGameFactory(mouse), mouse));
-        menuButtons.add(new MenuButton(menus[2], new SnakeGameFactory(), mouse));
+        menuButtons.add(new MenuButton(menus[2], new SnakeGameFactory(mouse), mouse));
         
         col = new ColumnElement().setSeperation(20);
         for(MenuButton mb : menuButtons){ col.addElement(mb); }

@@ -12,6 +12,10 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class SnakeGame implements IGame{
+    
+    public static final Font font1 = new Font("Courier", Font.BOLD, 50);
+    
+    private Mouse mouse;
     SnakeHead head;
     ArrayList<SnakeBody> body;
     ArrayList<BraveCoinsGenerator> coin;
@@ -23,7 +27,8 @@ public class SnakeGame implements IGame{
     int score;
     
     //random.nextInt(max - min + 1) + min
-    public SnakeGame(){
+    public SnakeGame(Mouse mouse){
+        this.mouse = mouse;
         Random random = new Random();
         
         score = 0;
@@ -33,7 +38,7 @@ public class SnakeGame implements IGame{
         initycoord = random.nextInt(Main.HEIGHT - 90 - 90 + 1) + 90;
         xvel = random.nextInt(4)+2;
         yvel = random.nextInt(4)+2;
-        head = new SnakeHead(initxcoord, initycoord, xvel, yvel);
+        head = new SnakeHead(initxcoord, initycoord, xvel, yvel, mouse);
        
         //Create body
         body = new ArrayList<SnakeBody>();
@@ -52,7 +57,7 @@ public class SnakeGame implements IGame{
     
     public void update(AffineTransform at){
         Random random = new Random();
-        head.update(getSize());
+        head.update(getSize(), mouse.getTransformedPos(at));
         detect.update(head.xcoord, head.ycoord, coin);
         detect.check();
         for (int x = coin.size() - 1; x >= 0; x--){
@@ -61,7 +66,7 @@ public class SnakeGame implements IGame{
                coin.remove(x);
                coin.add(new BraveCoinsGenerator(random.nextInt((int)getSize().x - 90 - 90 + 1) + 90,
                random.nextInt((int)getSize().y - 90 - 90 + 1) + 90));
-               body.add(new SnakeBody(initxcoord, initycoord));
+               body.add(new SnakeBody(-100, -100));
            }
        }  
         for (int x = 0; x < body.size(); x++){
@@ -88,7 +93,6 @@ public class SnakeGame implements IGame{
         g.fill3DRect((int)getSize().x - 140, 40, 100, 200, true);
         g.setColor(Color.BLACK);
         FontRenderContext frc = g.getFontRenderContext();
-        Font font1 = new Font("Courier", Font.BOLD, 50);
         TextLayout tl = new TextLayout(Integer.toString(score), font1, frc);
         tl.draw(g, (int)getSize().x - 100, 160);
         
